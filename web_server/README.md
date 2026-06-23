@@ -2,6 +2,20 @@
 
 We chose **Caddy** as our web server because of its clean configuration file, sensible defaults, and fully open-source nature. Most importantly, it supports **automatic HTTPS**, which significantly reduces the burden of TLS state management and server configuration, giving it the advantage of being "**secure by default**".
 
+## Network Configuration
+
+Since the web server needs to be accessible from the outside, it requires a static IP address to facilitate port forwarding by the gateway. To achieve this, add the following instructions to the end of `/etc/dhcpcd.conf`.
+
+```
+inform 192.168.0.3/24
+```
+
+Then, restart the networking service.
+
+```sh
+systemctl restart networking.service
+```
+
 ## Installation
 
 Because Grml uses a snapshot of Debian Testing as its source, and Caddy happened to be removed from Testing on the day that snapshot was taken, we cannot install Caddy directly via the apt command. Instead, we can add the first-party source first, and then install it using apt.
