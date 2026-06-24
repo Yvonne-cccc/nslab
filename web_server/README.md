@@ -10,10 +10,11 @@ Since the web server needs to be accessible from the outside, it requires a stat
 inform 192.168.0.3/24
 ```
 
-Then, restart the networking service.
+Then, restart the DHCP client. Replace *\<lan\>* in the commands with the actual interface name.
 
 ```sh
-systemctl restart networking.service
+dhcpcd -k <lan>
+dhcpcd <lan>
 ```
 
 ## Installation
