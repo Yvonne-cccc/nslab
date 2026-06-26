@@ -7,10 +7,3 @@ table ip nat {
         }
     }
 }
-
-table ip filter {
-    chain forward {
-        # drop HTTP/3 requests because squid can not handle it
-        iifname $lan_if ip saddr $lan_net udp dport 443 drop
-    }
-}
