@@ -1,13 +1,6 @@
 # transparent web proxy 
 
-We use squid as our transparent web proxy. Squid will run on the same computer as the router. To be transparent we have to redirect web traffic to squid without knowledge of the clients. We do this via iptables on the router:
-
-HTTP:
-iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3128
-
-HTTPS:
-iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 3129
-
+We use squid as our transparent web proxy. Squid will run on the same computer as the router. To be transparent we have to redirect web traffic to squid without knowledge of the clients. This is done via *network/squid.nft*.
 
 Because HTTPS is encrypted Squid doesnt decode the HTTPS traffic, but can filter for the host.
 

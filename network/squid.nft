@@ -1,0 +1,16 @@
+table ip nat {
+    chain prerouting {
+        # redirect HTTP/HTTPS traffic from LAN to squid
+        iifname $lan_if ip saddr $lan_net ip daddr != { $wan_ip, $lan_ip } redirect to tcp dport map {
+            80  : 3128,
+            443 : 3129,
+        }
+    }
+}
+
+table ip filter {
+    chain forward {
+        # drop HTTP/3 requests because squid can not handle it
+        iifname $lan_if ip saddr $lan_net udp dport 443 drop
+    }
+}
